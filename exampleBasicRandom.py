@@ -15,58 +15,48 @@ Antonio Cancio
 Phys 336/536
 March 17, 2020
 """
-import numpy
+import numpy as np
 import matplotlib.pyplot as plt
 
-#need this to call random number generator
-from numpy.random import random_sample
+maxPoints = 1000
 
-npoints = 1000
-
-#make pyplot plot.  If you don't have matplotlib, then comment this out
-#and just print data out to use in Excel.
-
-#Doing this one step at a time would be slow, but possible
+# Doing this one step at a time would be slow, but possible
 print("Scalar method of generating random number sequence")
 print("Uniform distribution")
 
-ilist = []
-xlist = []
-for i in range(npoints):
-    x = random_sample()
-    ilist.append(i)
-    xlist.append(x)
+iList = []
+xList = []
+for i in range(maxPoints):
+    x = np.random.random_sample()
+    iList.append(i)
+    xList.append(x)
     #print (i, x)
 
-plt.plot(ilist, xlist, color="red", label="list", linestyle="None",
-         marker=".")
+plt.plot(iList, xList, color="red", label="list", linestyle="None", marker=".")
 
-#generate sequence that is npoints long and store in an array
+# generate sequence that is maxPoints long and store in an array
 print("Array method of generating random number sequence")
 print("Uniform distribution")
 
-iarray = numpy.arange(0,npoints,1)  #array of integers
-xarray = random_sample(npoints)     #array of random numbers
+iArray = np.arange(0, maxPoints, 1)  # array of integers
+xArray = np.random.random_sample(maxPoints)  # array of random numbers
+plt.plot(iArray, xArray, color="blue", label="array", linestyle="None", marker="x")
 
-plt.plot(iarray, xarray, color="blue", label="array", linestyle="None",
-         marker="x")
-
-#other stuff for plot
+# other stuff for plot
 plt.xlabel("i")
 plt.xlabel("Number")
 plt.legend()
 plt.show()
 
-######## Playing around -- delete for lab
-#second_plot = gdisplay(xtitle='x_i+1',
-#                       ytitle='x_i',
-#                       width=500, height=500)
-#crazy_correlations = gdots(color=color.green)
-#
-#for i in range(npoints-1):
-#    rate(10000)
-#    #print(xarray[i], xarray[i+1])
-#    crazy_correlations.plot( pos=(xarray[i], xarray[i+1]) )
-#
-#print (numpy.average(xarray))
-#print (numpy.var(xarray))
+# Playing around -- delete for lab
+"""
+second_plot = gdisplay(xtitle='x_i+1', ytitle='x_i', width=500, height=500)
+crazy_correlations = gdots(color=color.green)
+for i in range(maxPoints-1):
+    rate(10000)
+    #print(xArray[i], xArray[i+1])
+    crazy_correlations.plot(pos=(xArray[i], xArray[i+1]))
+
+print(np.average(xArray))
+print(np.var(xArray))
+"""
