@@ -1,12 +1,12 @@
 import matplotlib.pyplot as plt
 
-seed = 3
-a = 4
+seed = 10
+a = 57
 c = 1
-m = 9
+m = 256
 
 currentRandomNumber = seed
-maxNumber = 10
+maxNumber = 300
 randomNumberList = [currentRandomNumber]
 randomIndexList = [0]
 
@@ -26,5 +26,7 @@ for index in range(1, len(randomNumberList)):
 
 plt.plot(xAxisList, yAxisList, 'b.')
 plt.suptitle("'Bad' Random number generator")
+plt.xlabel("ri-1")
+plt.ylabel("ri")
 plt.grid(True)
 plt.show()
