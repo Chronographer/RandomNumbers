@@ -1,23 +1,22 @@
 import matplotlib.pyplot as plt
 import numpy.random as random
+import numpy as np
 
 a = 25214903917
 c = 11
 m = 2 ** 48
 seed = 10
 
-maxNumber = 1000
+maxNumber = 100000
 
 
 def generateRandomNumberLinearCongruence():
-    print("Generating list of random numbers using linear congruence method...")
+    print("generating list of random numbers using linear congruence method...")
     currentRandomNumber = seed
     randomNumberList = [seed]
     for index in range(0, maxNumber):
         currentRandomNumber = (currentRandomNumber * a + c) % m
         randomNumberList.append(currentRandomNumber)
-        #print(currentRandomNumber)
-    #print("done.")
     return randomNumberList
 
 
@@ -26,7 +25,6 @@ def generateUniformRandomNumber(randomNumberList):
     uniformList = []
     for i in range(0, len(randomNumberList)):
         uniformList.append(randomNumberList[i] / m)
-    #print("done.")
     return uniformList
 
 
@@ -36,7 +34,6 @@ def generateRandomNumberNumPY():
     for i in range(0, maxNumber):
         x = random.random_sample()
         randomNumberList.append(x)
-    #print("done.")
     return randomNumberList
 
 
@@ -53,7 +50,6 @@ def plotRandomNumberCorrelation(randomNumberList):
     plt.ylabel("ri")
     plt.grid(True)
     plt.show()
-    #print("done.")
 
 
 def plotRandomNumberInOrder(randomNumberList):
@@ -69,7 +65,6 @@ def plotRandomNumberInOrder(randomNumberList):
     plt.ylabel("ri")
     plt.grid(True)
     plt.show()
-    #print("done.")
 
 
 def computePatternLength(randomNumberList):
@@ -96,7 +91,6 @@ def computePatternLength(randomNumberList):
         secondHalfOfTheList.clear()
     if patternRepeatFlag is False:
         print("No repeating pattern found.")
-    #print("done.")
 
 
 def computeUniformity(randomNumberList, k):
@@ -109,11 +103,34 @@ def computeUniformity(randomNumberList, k):
     print("moment of distribution where k=" + str(k) + " is: " + str(xK))
 
 
+def transform(uniformList):
+    print("transforming uniform random number list...")
+    transformedList = []
+    yList = []
+    alpha = 1
+    for i in range(0, len(uniformList)):
+        y = -alpha * np.log(uniformList[i])
+        transformedList.append(y)
+        yList.append(np.exp(-y))
+    return [transformedList, yList]
+
+
+def plotPoission(masterList):
+    transformedList = masterList[0]
+    yList = masterList[1]
+    plt.plot(transformedList, yList, 'b.')
+    plt.grid(True)
+    plt.show()
+
+
 uniformRandomList = generateUniformRandomNumber(generateRandomNumberLinearCongruence())
 #uniformRandomList = generateRandomNumberNumPY()
-computePatternLength(uniformRandomList)
-plotRandomNumberCorrelation(uniformRandomList)
-plotRandomNumberInOrder(uniformRandomList)
+#computePatternLength(uniformRandomList)
+#plotRandomNumberCorrelation(uniformRandomList)
+#plotRandomNumberInOrder(uniformRandomList)
 computeUniformity(uniformRandomList, 1)
 computeUniformity(uniformRandomList, 2)
+transformedUniformRandomNumberList = transform(uniformRandomList)
+plotPoission(transformedUniformRandomNumberList)
+
 
