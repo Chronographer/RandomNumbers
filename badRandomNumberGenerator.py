@@ -152,6 +152,7 @@ def computeStatisticalVariance(masterList, statisticalAverage):
     statisticalVariance = ySum * (1 / (len(yList) - 1))
     print("statisticalVariance is: " + str(statisticalVariance))
 
+
 uniformRandomList = generateUniformRandomNumber(generateRandomNumberLinearCongruence())
 #uniformRandomList = generateRandomNumberNumPY()
 #computePatternLength(uniformRandomList)
