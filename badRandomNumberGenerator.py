@@ -7,13 +7,13 @@ c = 11
 m = 2 ** 48
 seed = 10
 
-maxNumber = 100000
+maxNumber = 10000
 
 
 def generateRandomNumberLinearCongruence():
     print("generating list of random numbers using linear congruence method...")
     currentRandomNumber = seed
-    randomNumberList = [seed]
+    randomNumberList = []
     for index in range(0, maxNumber):
         currentRandomNumber = (currentRandomNumber * a + c) % m
         randomNumberList.append(currentRandomNumber)
@@ -68,7 +68,7 @@ def plotRandomNumberInOrder(randomNumberList):
 
 
 def computePatternLength(randomNumberList):
-    print("attempting to identify a repeating pattern...")
+    print("attempting to identify a repeating pattern...\n(This may take a moment for large sequences with >= ~5000 values)")
     firstHalfOfTheList = []
     secondHalfOfTheList = []
     patternRepeatFlag = False
@@ -115,13 +115,42 @@ def transform(uniformList):
     return [transformedList, yList]
 
 
-def plotPoission(masterList):
+def plotPoisson(masterList):
+    print("plotting nonuniform random distribution...")
     transformedList = masterList[0]
     yList = masterList[1]
-    plt.plot(transformedList, yList, 'b.')
+    plt.plot(transformedList, yList, 'b.', ms=1.5)
+    plt.suptitle("Nonuniform random number sequence\n(Poisson distribution)")
+    plt.ylabel("Py(y)")
+    plt.xlabel("y")
     plt.grid(True)
     plt.show()
 
+
+def plotPoissonHistogram(masterList):
+    print("plotting histogram of nonuniform random distribution...")
+    transformedList = masterList[0]
+    plt.hist(transformedList, 50)
+    plt.show()
+
+
+def computeStatisticalAverage(masterList):
+    yList = masterList[1]
+    ySum = 0
+    for i in range(0, len(yList)):
+        ySum = ySum + yList[i]
+    statisticalAverage = ySum / len(yList)
+    print("statistical average is: " + str(statisticalAverage))
+    return statisticalAverage
+
+
+def computeStatisticalVariance(masterList, statisticalAverage):
+    yList = masterList[1]
+    ySum = 0
+    for i in range(0, len(yList)):
+        ySum = (yList[i] - statisticalAverage) ** 2
+    statisticalVariance = ySum * (1 / (len(yList) - 1))
+    print("statisticalVariance is: " + str(statisticalVariance))
 
 uniformRandomList = generateUniformRandomNumber(generateRandomNumberLinearCongruence())
 #uniformRandomList = generateRandomNumberNumPY()
@@ -131,6 +160,9 @@ uniformRandomList = generateUniformRandomNumber(generateRandomNumberLinearCongru
 computeUniformity(uniformRandomList, 1)
 computeUniformity(uniformRandomList, 2)
 transformedUniformRandomNumberList = transform(uniformRandomList)
-plotPoission(transformedUniformRandomNumberList)
+#plotPoisson(transformedUniformRandomNumberList)
+statisticalAVG = computeStatisticalAverage(transformedUniformRandomNumberList)
+computeStatisticalVariance(transformedUniformRandomNumberList, statisticalAVG)
+plotPoissonHistogram(transformedUniformRandomNumberList)
 
 
