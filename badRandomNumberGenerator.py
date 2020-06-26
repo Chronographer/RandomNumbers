@@ -7,7 +7,7 @@ c = 11
 m = 2 ** 48
 seed = 10
 
-maxNumber = 10000
+maxNumber = 20000000
 
 
 def generateRandomNumberLinearCongruence():
@@ -69,6 +69,8 @@ def plotRandomNumberInOrder(randomNumberList):
 
 def computePatternLength(randomNumberList):
     print("attempting to identify a repeating pattern...\n(This may take a moment for large sequences with >= ~5000 values)")
+    if len(randomNumberList) > 10000:
+        print('\033[1m' + "Warning" + '\033[0m' + ": using 'computePatternLength()' to detect very long patterns or with a large data set which does not repeat may take extensive computing time.")
     firstHalfOfTheList = []
     secondHalfOfTheList = []
     patternRepeatFlag = False
@@ -130,11 +132,13 @@ def plotPoisson(masterList):
 def plotPoissonHistogram(masterList):
     print("plotting histogram of nonuniform random distribution...")
     transformedList = masterList[0]
-    plt.hist(transformedList, 50)
+    plt.hist(transformedList, 150)
+    plt.suptitle("Histogram of a nonuniform random distribution")
     plt.show()
 
 
 def computeStatisticalAverage(masterList):
+    print("computing statistical average...")
     yList = masterList[1]
     ySum = 0
     for i in range(0, len(yList)):
@@ -145,6 +149,7 @@ def computeStatisticalAverage(masterList):
 
 
 def computeStatisticalVariance(masterList, statisticalAverage):
+    print("computing statistical variance...")
     yList = masterList[1]
     ySum = 0
     for i in range(0, len(yList)):
@@ -164,6 +169,6 @@ transformedUniformRandomNumberList = transform(uniformRandomList)
 #plotPoisson(transformedUniformRandomNumberList)
 statisticalAVG = computeStatisticalAverage(transformedUniformRandomNumberList)
 computeStatisticalVariance(transformedUniformRandomNumberList, statisticalAVG)
-plotPoissonHistogram(transformedUniformRandomNumberList)
+#plotPoissonHistogram(transformedUniformRandomNumberList)
 
 
