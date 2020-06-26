@@ -7,7 +7,7 @@ c = 11
 m = 2 ** 48
 seed = 10
 
-maxNumber = 20000000
+maxNumber = 1000
 
 
 def generateRandomNumberLinearCongruence():
@@ -73,7 +73,6 @@ def computePatternLength(randomNumberList):
         print('\033[1m' + "Warning" + '\033[0m' + ": using 'computePatternLength()' to detect very long patterns or with a large data set which does not repeat may take extensive computing time.")
     firstHalfOfTheList = []
     secondHalfOfTheList = []
-    patternRepeatFlag = False
     for index in range(0, len(randomNumberList)):
         #print("\nLooking for repetition in the first " + str(index) + " indices...")
         for i in range(0, index):
@@ -87,12 +86,10 @@ def computePatternLength(randomNumberList):
                 print('\033[1m' + "match found!" + '\033[0m' + " Pattern repeats every " + str(len(firstHalfOfTheList)) + " values!")
                 print("firstHalfOfTheList: " + str(firstHalfOfTheList))
                 print("secondHalfOfTheList: " + str(secondHalfOfTheList))
-                patternRepeatFlag = True  # let the program know that the pattern does repeat
                 return
         firstHalfOfTheList.clear()
         secondHalfOfTheList.clear()
-    if patternRepeatFlag is False:
-        print("No repeating pattern found.")
+    print("No repeating pattern found.")
 
 
 def computeUniformity(randomNumberList, k):
@@ -160,15 +157,15 @@ def computeStatisticalVariance(masterList, statisticalAverage):
 
 uniformRandomList = generateUniformRandomNumber(generateRandomNumberLinearCongruence())
 #uniformRandomList = generateRandomNumberNumPY()
-#computePatternLength(uniformRandomList)
-#plotRandomNumberCorrelation(uniformRandomList)
-#plotRandomNumberInOrder(uniformRandomList)
-computeUniformity(uniformRandomList, 1)
-computeUniformity(uniformRandomList, 2)
-transformedUniformRandomNumberList = transform(uniformRandomList)
+computePatternLength(uniformRandomList)
+plotRandomNumberCorrelation(uniformRandomList)
+plotRandomNumberInOrder(uniformRandomList)
+#computeUniformity(uniformRandomList, 1)
+#computeUniformity(uniformRandomList, 2)
+#transformedUniformRandomNumberList = transform(uniformRandomList)
 #plotPoisson(transformedUniformRandomNumberList)
-statisticalAVG = computeStatisticalAverage(transformedUniformRandomNumberList)
-computeStatisticalVariance(transformedUniformRandomNumberList, statisticalAVG)
+#statisticalAVG = computeStatisticalAverage(transformedUniformRandomNumberList)
+#computeStatisticalVariance(transformedUniformRandomNumberList, statisticalAVG)
 #plotPoissonHistogram(transformedUniformRandomNumberList)
 
 
